@@ -4,7 +4,13 @@ import List from "./List";
 
 const Lists = ({ todoData, setTodoData }) => {
     const handleEnd = (result) => {
-        console.log(result);
+        if (!result.destination) return;
+        const newTodoData = todoData;
+
+        const [reorderedItem] = newTodoData.splice(result.source.index, 1);
+
+        newTodoData.splice(result.destination.index, 0, reorderedItem);
+        setTodoData(newTodoData);
     };
 
     return (
@@ -28,6 +34,7 @@ const Lists = ({ todoData, setTodoData }) => {
                                 )}
                             </Draggable>
                         ))}
+                        {provided.placeholder}
                     </div>
                 )}
             </Droppable>
